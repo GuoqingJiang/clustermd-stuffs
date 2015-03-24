@@ -1,0 +1,5 @@
+KERNEL!="md*", GOTO="clustermd_end"
+SUBSYSTEM!="block", GOTO="clustermd_end"
+ENV{DEVTYPE}!="disk", GOTO="clustermd_end"
+ACTION=="change", RUN+="/usr/sbin/clustermd-confirm.sh $env{DEVNAME} $env{DEVICE_UUID} $env{RAID_DISK}"
+LABEL="clustermd_end"
