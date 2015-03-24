@@ -1,0 +1,23 @@
+diff --git a/heartbeat/Raid1 b/heartbeat/Raid1
+index 4460ca1..0e9f455 100755
+--- a/heartbeat/Raid1
++++ b/heartbeat/Raid1
+@@ -182,7 +182,8 @@ are_arrays_stopped() {
+ 
+ md_assemble() {
+ 	local mddev=$1
+-	$MDADM --assemble $mddev --config=$RAIDCONF $MDADM_HOMEHOST
++	local disks=`head -1 $RAIDCONF | cut -d ' ' -f 2-`
++        $MDADM --assemble $mddev --config=$RAIDCONF $disks $MDADM_HOMEHOST
+ 	udev_settle --exit-if-exists=$mddev
+ }
+ #
+@@ -479,7 +480,7 @@ fi
+ if ocf_is_clone && ! ocf_is_true "$OCF_RESKEY_force_clones"; then
+ 	ocf_log err "md RAID arrays are NOT safe to run as a clone!"
+ 	ocf_log err "Please read the comment on the force_clones parameter."
+-	exit $OCF_ERR_CONFIGURED
++#	exit $OCF_ERR_CONFIGURED
+ fi
+ 
+ if ocf_is_true $WAIT_FOR_UDEV && ! have_binary udevadm; then
