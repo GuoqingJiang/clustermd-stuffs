@@ -7,4 +7,6 @@ DISK=`/sbin/blkid -o device -t UUID_SUB=$DEVICE_UUID`
 if [ -n "$DISK" ]
 then
 /sbin/mdadm --manage $DEVNAME --cluster-confirm $SLOT_NUM:$DISK
+else
+/sbin/mdadm --manage $DEVNAME --cluster-confirm $SLOT_NUM:missing
 fi
