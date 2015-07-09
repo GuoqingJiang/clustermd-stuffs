@@ -1,27 +1,37 @@
 Abstract
+--------
 
-Cluster Multi-device is a software based RAID1 storage solution for a
-cluster. It provides the redundancy of RAID1 mirroring to the cluster.
-If one of the devices of the mirror fails, it can be hot-replaced
-by another device and it is re-synced to provide the same amount of
-redundancy. The cluster md requires Distributed Lock Manager (DLM) for
-co-ordination and messaging.
+The cluster multi-device (Cluster MD) is a software based RAID
+(only suitable for RAID1 now) storage solution for a cluster,
+which provides the redundancy of RAID1 mirroring to the cluster.
+When used with Corosync, Cluster MD supports distributed
+high-availability Linux clusters. This chapter shows you how
+to install and use Cluster MD.
+
 
 Conceptual View
+---------------
+
+Cluster MD could protect RAID1 across cluster environment. If one
+of the devices of the Cluster MD fails, it can be hot-replaced by
+another device and it is re-synced to provide the same amount of
+redundancy. The Cluster MD requires Distributed Lock Manager (DLM)
+for co-ordination and messaging.
 
 Figure:
 
 
 
 Creating a clustered MD RAID device
+-----------------------------------
 
 Requirements
 
 1. A running cluster with pacemaker
 2. A resource agent fom DLM (Note, see the ocfs2 section on how to
 		configure DLM).
-3. Atleast two shared disk devices. You can use an additional device as
-a spare which will failover automatically in case of device failure.
+3. At least two shared disk devices. You can use an additional device
+as a spare which will failover automatically in case of device failure.
 
 
 Before creating a clustered md device, make sure the DLM resource is up
@@ -58,6 +68,7 @@ failover. Issue the following command:
 
 
 Configuring a resource agent
+----------------------------
 
 
 Before creating a resource agent, edit /etc/mdadm.conf file to add the
@@ -146,5 +157,3 @@ You can remove the failed device using the command:
 
 Note: cLVM chapter needs to be edited to include cluster md as one of
 the options.
-
-
