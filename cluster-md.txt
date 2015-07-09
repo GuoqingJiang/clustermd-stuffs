@@ -100,7 +100,7 @@ Review your changes with show.
 If everything seems correct, submit your changes with commit.
 
 
-[Edit note: Change the device names used as /dev/disk/by-id/.. for the
+[Edit note: Change the device names as /dev/disk/by-id/.. for the
 sake of uniqueness. It should be a SAN based name as opposed to a
 virtual machine name.]
 
@@ -132,7 +132,7 @@ Quite often the failures are transient and limited to a single node. If
 any of the node encounters a failure during an I/O operation, the device
 will be marked as failed for the entire cluster. This could happen say, due
 to a cable failure on one of the nodes. After correcting the problem,
-you can re-add the device and only the potins of the device which are
+you can re-add the device and only the portions of the device which are
 out of sync will be synced (as opposed to syncing the entire device by
 adding a new one). In order to re-add the device, issue:
 
