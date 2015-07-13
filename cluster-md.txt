@@ -4,22 +4,17 @@ Abstract
 The cluster multi-device (Cluster MD) is a software based RAID
 (only suitable for RAID1 now) storage solution for a cluster,
 which provides the redundancy of RAID1 mirroring to the cluster.
-When used with Corosync, Cluster MD supports distributed
-high-availability Linux clusters. This chapter shows you how
-to install and use Cluster MD.
+This chapter shows you how to use Cluster MD.
 
 
 Conceptual View
 ---------------
 
-Cluster MD could protect RAID1 across cluster environment. If one
-of the devices of the Cluster MD fails, it can be hot-replaced by
-another device and it is re-synced to provide the same amount of
-redundancy. The Cluster MD requires Distributed Lock Manager (DLM)
-for co-ordination and messaging.
-
-Figure:
-
+The Cluster MD provides the support for use RAID1 across cluster
+environment. If one device of the Cluster MD fails, it can be
+hot-replaced by another device and it is re-synced to provide
+the same amount of redundancy. The Cluster MD requires Corosync
+and Distributed Lock Manager (DLM) for co-ordination and messaging.
 
 
 Creating a clustered MD RAID device
@@ -27,7 +22,7 @@ Creating a clustered MD RAID device
 
 Requirements
 
-1. A running cluster with pacemaker
+1. A running cluster with pacemaker.
 2. A resource agent fom DLM (Note, see the ocfs2 section on how to
 		configure DLM).
 3. At least two shared disk devices. You can use an additional device
@@ -54,7 +49,8 @@ device.
 be used with the device. If not specified, the default value is 4.
 
 --home-cluster takes an argument for the cluster name. Not specifying
-this option will cause mdadm to probe the cluster for the cluster name.
+this option will cause mdadm to probe the cluster for the cluster name,
+and also need to ensure the argument is same as cluster name.
 
 Note: Creating a clustered device disables incremental activation of the
 device so that they are not automatically started by the inird system
@@ -112,9 +108,9 @@ To add a device to an existing md-device, issue the command:
 
 # mdadm --manage md127 --add /dev/sdc
 
-Ensure that the device is "visible" on each node the md device is active,
-or else the command will fail. Behaviour of the new device added depends
-on the state of the MD cluster device. If only one of the mirrored
+Ensure that the device is "visible" on each node, and the md device is
+active, or else the command will fail. Behaviour of the new device added
+depends on the state of the MD cluster device. If only one of the mirrored
 device is active, the new device becomes the second device of the
 mirrored devices and a resync is initiated. If both devices of the
 md-cluster are active, the new device added becomes a spare.
@@ -130,7 +126,7 @@ Re-adding a temporarily failed device
 
 Quite often the failures are transient and limited to a single node. If
 any of the node encounters a failure during an I/O operation, the device
-will be marked as failed for the entire cluster. This could happen say, due
+will be marked as failed for the entire cluster. This could happen due
 to a cable failure on one of the nodes. After correcting the problem,
 you can re-add the device and only the portions of the device which are
 out of sync will be synced (as opposed to syncing the entire device by
