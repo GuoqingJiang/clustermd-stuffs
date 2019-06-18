@@ -1,0 +1,17 @@
+NODES=3
+HOSTNAME_NODE1=clustermd-test1-15sp1
+IP_NODE1=10.67.162.58
+HOSTNAME_NODE2=clustermd-test2-15sp1
+IP_NODE2=10.67.162.84
+HOSTNAME_NODE3=clustermd-test3-15sp1
+IP_NODE3=10.67.162.191
+NETADDR=10.67.160.0
+ON_HOST=bj-ha-4
+HOST_IPADDR=10.67.160.104
+STONITH=libvirt
+NODE_LIST=clustermd-test1-15sp1,clustermd-test2-15sp1,clustermd-test3-15sp1
+SHARED_TARGET_LUN1=iqn.2019-02.clustermd.com:ci-test
+SHARED_TARGET_IP1=10.67.160.200
+NUM_SHARED_TARGETS=1
+
+EXTRA_REPOS=(http://download.suse.de/ibs/SUSE:/SLE-15-SP1:/GA/standard/)
